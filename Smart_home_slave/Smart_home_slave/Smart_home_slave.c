@@ -28,40 +28,39 @@ int main(void)
 		switch (select)
 		{
 		case '1':
-		TOGBIT(PORTC,0);
-		SPI_send_char(GETBIT(PORTC,0));
+		select=SPI_receive_char();
+		if (select=='1'){SETBIT(PORTC,0);}
+		else if (select=='2'){CLRBIT(PORTC,0);}
 		break;
 		case '2':
-		TOGBIT(PORTC,1);
-		SPI_send_char(GETBIT(PORTC,1));
+		select=SPI_receive_char();
+		if (select=='1'){SETBIT(PORTC,1);}
+		else if (select=='2'){CLRBIT(PORTC,1);}	
 		break;
 		case '3':
-		TOGBIT(PORTC,2);
-		SPI_send_char(GETBIT(PORTC,2));
+		select=SPI_receive_char();
+		if (select=='1'){SETBIT(PORTC,2);}
+		else if (select=='2'){CLRBIT(PORTC,2);}
 		break;
 		case '4':
-		TOGBIT(PORTC,3);
-		SPI_send_char(GETBIT(PORTC,3));
+		select=SPI_receive_char();
+		if (select=='1'){SETBIT(PORTC,3);}
+		else if (select=='2'){CLRBIT(PORTC,3);}
 		break;
 		case '5':
-		TOGBIT(PORTC,4);
-		SPI_send_char(GETBIT(PORTC,4));
+		select=SPI_receive_char();
+		if (select=='1'){SETBIT(PORTC,4);}
+		else if (select=='2'){CLRBIT(PORTC,4);}
 		break;
 		case '6':
-		TOGBIT(PORTC,5);
-		SPI_send_char(GETBIT(PORTC,5));
+		select=SPI_receive_char();
+		if (select=='1'){SETBIT(PORTC,5);}
+		else if (select=='2'){CLRBIT(PORTC,5);}
 		break;
 		default:
 		SPI_send_char('n');
 		break;
 		}
-		/*if(select!='0'){
-		SETBIT(PORTC,0);
 		
-		
-		}
-		else{
-		CLRBIT(PORTC,0);
-		}*/
     }
 }

@@ -16,6 +16,7 @@ void guest_display();
 void get_password ();
 void ADMIN();
 void GUEST();
+uint8_t button_num=0;
 uint8_t block_mode;
 uint8_t start_msg=0;
 uint8_t count=0;
@@ -93,6 +94,9 @@ int main(void){
 		LCD_write_string("0>admin&1>guest ");
 		_delay_ms(500);
 		start_msg++;
+		CLRBIT(PORTB,4);
+		SPI_send_char('0');
+		SETBIT(PORTB,4);
 		}
 		get_password();
 				
@@ -249,6 +253,10 @@ void get_password ()
 				LCD_write_string("Room 1");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				button_num=key;
+				CLRBIT(PORTB,4);
+				SPI_send_char(key);
+				SETBIT(PORTB,4);
 				key=-1;
 				count=6;
 				break;
@@ -257,6 +265,10 @@ void get_password ()
 				LCD_write_string("Room 2");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				button_num=key;
+				CLRBIT(PORTB,4);
+				SPI_send_char(key);
+				SETBIT(PORTB,4);
 				key=-1;
 				count=6;
 				break;
@@ -265,15 +277,23 @@ void get_password ()
 				LCD_write_string("Room 3");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				button_num=key;
+				CLRBIT(PORTB,4);
+				SPI_send_char(key);
+				SETBIT(PORTB,4);
 				key=-1;
 				count=6;
 				break;
 				case '4':
+				button_num=key;
 				if (state==1){
 				LCD_write_command(1);
 				LCD_write_string("Room 4");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				CLRBIT(PORTB,4);
+				SPI_send_char(key);
+				SETBIT(PORTB,4);
 				key=-1;
 				count=6;
 				}
@@ -286,6 +306,9 @@ void get_password ()
 					LCD_write_string("Room 4");
 					LCD_write_command(0xc0);
 					LCD_write_string("1>on 2>off 3>back");
+					CLRBIT(PORTB,4);
+					SPI_send_char(key);
+					SETBIT(PORTB,4);
 					key=-1;
 					count=6;
 					disp_falg=0;
@@ -293,11 +316,15 @@ void get_password ()
 				else {key=-1;}
 				break;
 				case '5':
+				button_num=key;
 				if (state==0 && disp_falg==1){
 				LCD_write_command(1);
 				LCD_write_string("TV");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				CLRBIT(PORTB,4);
+				SPI_send_char(key);
+				SETBIT(PORTB,4);
 				disp_falg=0;
 				key=-1;
 				count=6;
@@ -311,11 +338,15 @@ void get_password ()
 				}
 				break;
 				case '6':
+				button_num=key;
 				if(state==0 && disp_falg==1){
 				LCD_write_command(1);
 				LCD_write_string("COND");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				CLRBIT(PORTB,4);
+				SPI_send_char(key);
+				SETBIT(PORTB,4);
 				disp_falg=0;
 				key=-1;
 				count=6;
@@ -329,6 +360,7 @@ void get_password ()
 				}
 				break;
 				case '7':
+				button_num=key;
 				if(state==0&&disp_falg==1){
 					admin_display();
 					disp_falg=0;
@@ -349,6 +381,13 @@ void get_password ()
 				LCD_write_string("Room 1");
 				LCD_write_command(0xc0);
 				LCD_write_string("on");				// change this to spi send 
+				CLRBIT(PORTB,4);
+				SPI_send_char(key);
+				SETBIT(PORTB,4);
+				_delay_ms(100);
+				CLRBIT(PORTB,4);
+				SPI_send_char(button_num);
+				SETBIT(PORTB,4);
 				key=-1;
 				break;
 				case '2':
@@ -356,9 +395,19 @@ void get_password ()
 				LCD_write_string("Room 1");		// change this to spi send 	
 				LCD_write_command(0xc0);
 				LCD_write_string("off");
+				CLRBIT(PORTB,4);
+				SPI_send_char(key);
+				SETBIT(PORTB,4);
+				_delay_ms(100);
+				CLRBIT(PORTB,4);
+				SPI_send_char(button_num);
+				SETBIT(PORTB,4);
 				key=-1;
 				break;
 				case '3':
+				CLRBIT(PORTB,4);
+				SPI_send_char('0');
+				SETBIT(PORTB,4);
 				if(state==0){
 					admin_display();
 					key=-1;

@@ -3,27 +3,27 @@ Smart_home_slave.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000004ca  00000000  00000000  00000074  2**1
+  0 .text         000004ba  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  000004ca  0000053e  2**0
+  1 .data         00000000  00800060  000004ba  0000052e  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .stab         000006cc  00000000  00000000  00000540  2**2
+  2 .stab         000006cc  00000000  00000000  00000530  2**2
                   CONTENTS, READONLY, DEBUGGING
-  3 .stabstr      00000085  00000000  00000000  00000c0c  2**0
+  3 .stabstr      00000085  00000000  00000000  00000bfc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .debug_aranges 00000100  00000000  00000000  00000c98  2**3
+  4 .debug_aranges 00000100  00000000  00000000  00000c88  2**3
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000a30  00000000  00000000  00000d98  2**0
+  5 .debug_info   00000a30  00000000  00000000  00000d88  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000002f7  00000000  00000000  000017c8  2**0
+  6 .debug_abbrev 000002f7  00000000  00000000  000017b8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000850  00000000  00000000  00001abf  2**0
+  7 .debug_line   00000898  00000000  00000000  00001aaf  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000154  00000000  00000000  00002310  2**2
+  8 .debug_frame  00000154  00000000  00000000  00002348  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000001e0  00000000  00000000  00002464  2**0
+  9 .debug_str    000001e0  00000000  00000000  0000249c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000001c6  00000000  00000000  00002644  2**0
+ 10 .debug_loc    0000024a  00000000  00000000  0000267c  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -63,7 +63,7 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	ea ec       	ldi	r30, 0xCA	; 202
+  66:	ea eb       	ldi	r30, 0xBA	; 186
   68:	f4 e0       	ldi	r31, 0x04	; 4
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
@@ -86,7 +86,7 @@ Disassembly of section .text:
   82:	b1 07       	cpc	r27, r17
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
   86:	0e 94 c5 01 	call	0x38a	; 0x38a <main>
-  8a:	0c 94 63 02 	jmp	0x4c6	; 0x4c6 <_exit>
+  8a:	0c 94 5b 02 	jmp	0x4b6	; 0x4b6 <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -553,7 +553,7 @@ for (i = 0; num != 0; i++ )
  326:	cd 01       	movw	r24, r26
  328:	a5 01       	movw	r20, r10
  32a:	94 01       	movw	r18, r8
- 32c:	0e 94 41 02 	call	0x482	; 0x482 <__udivmodsi4>
+ 32c:	0e 94 39 02 	call	0x472	; 0x472 <__udivmodsi4>
  330:	60 5d       	subi	r22, 0xD0	; 208
  332:	f7 01       	movw	r30, r14
  334:	60 83       	st	Z, r22
@@ -624,7 +624,7 @@ int main(void)
 	LCD_init();
  38a:	0e 94 b0 00 	call	0x160	; 0x160 <LCD_init>
 	SPI_slave_init();
- 38e:	0e 94 36 02 	call	0x46c	; 0x46c <SPI_slave_init>
+ 38e:	0e 94 2e 02 	call	0x45c	; 0x45c <SPI_slave_init>
 	SETBIT(DDRC,0);
  392:	a0 9a       	sbi	0x14, 0	; 20
 	SETBIT(DDRC,1);
@@ -637,249 +637,213 @@ int main(void)
  39a:	a4 9a       	sbi	0x14, 4	; 20
 	SETBIT(DDRC,5);
  39c:	a5 9a       	sbi	0x14, 5	; 20
-		case '4':
-		TOGBIT(PORTC,3);
-		SPI_send_char(GETBIT(PORTC,3));
-		break;
-		case '5':
-		TOGBIT(PORTC,4);
- 39e:	ee 24       	eor	r14, r14
- 3a0:	68 94       	set
- 3a2:	e4 f8       	bld	r14, 4
-		case '3':
-		TOGBIT(PORTC,2);
-		SPI_send_char(GETBIT(PORTC,2));
-		break;
-		case '4':
-		TOGBIT(PORTC,3);
- 3a4:	ff 24       	eor	r15, r15
- 3a6:	68 94       	set
- 3a8:	f3 f8       	bld	r15, 3
-		case '5':
-		TOGBIT(PORTC,4);
-		SPI_send_char(GETBIT(PORTC,4));
-		break;
-		case '6':
-		TOGBIT(PORTC,5);
- 3aa:	00 e2       	ldi	r16, 0x20	; 32
-		select=SPI_receive_char();
-		LCD_write_char(select);
-		switch (select)
-		{
-		case '1':
-		TOGBIT(PORTC,0);
- 3ac:	11 e0       	ldi	r17, 0x01	; 1
-		SPI_send_char(GETBIT(PORTC,0));
-		break;
-		case '2':
-		TOGBIT(PORTC,1);
- 3ae:	d2 e0       	ldi	r29, 0x02	; 2
-		SPI_send_char(GETBIT(PORTC,1));
-		break;
-		case '3':
-		TOGBIT(PORTC,2);
- 3b0:	dd 24       	eor	r13, r13
- 3b2:	68 94       	set
- 3b4:	d2 f8       	bld	r13, 2
-	SETBIT(DDRC,4);
-	SETBIT(DDRC,5);
 	while(1)
     {
 		
 		select=SPI_receive_char();
- 3b6:	0e 94 3d 02 	call	0x47a	; 0x47a <SPI_receive_char>
- 3ba:	c8 2f       	mov	r28, r24
+ 39e:	0e 94 35 02 	call	0x46a	; 0x46a <SPI_receive_char>
+ 3a2:	c8 2f       	mov	r28, r24
 		LCD_write_char(select);
- 3bc:	0e 94 ea 00 	call	0x1d4	; 0x1d4 <LCD_write_char>
+ 3a4:	0e 94 ea 00 	call	0x1d4	; 0x1d4 <LCD_write_char>
 		switch (select)
- 3c0:	c3 33       	cpi	r28, 0x33	; 51
- 3c2:	01 f1       	breq	.+64     	; 0x404 <main+0x7a>
- 3c4:	c4 33       	cpi	r28, 0x34	; 52
- 3c6:	30 f4       	brcc	.+12     	; 0x3d4 <main+0x4a>
- 3c8:	c1 33       	cpi	r28, 0x31	; 49
- 3ca:	59 f0       	breq	.+22     	; 0x3e2 <main+0x58>
- 3cc:	c2 33       	cpi	r28, 0x32	; 50
- 3ce:	09 f0       	breq	.+2      	; 0x3d2 <main+0x48>
- 3d0:	43 c0       	rjmp	.+134    	; 0x458 <main+0xce>
- 3d2:	0f c0       	rjmp	.+30     	; 0x3f2 <main+0x68>
- 3d4:	c5 33       	cpi	r28, 0x35	; 53
- 3d6:	59 f1       	breq	.+86     	; 0x42e <main+0xa4>
- 3d8:	c5 33       	cpi	r28, 0x35	; 53
- 3da:	f0 f0       	brcs	.+60     	; 0x418 <main+0x8e>
- 3dc:	c6 33       	cpi	r28, 0x36	; 54
- 3de:	e1 f5       	brne	.+120    	; 0x458 <main+0xce>
- 3e0:	30 c0       	rjmp	.+96     	; 0x442 <main+0xb8>
+ 3a8:	c3 33       	cpi	r28, 0x33	; 51
+ 3aa:	21 f1       	breq	.+72     	; 0x3f4 <main+0x6a>
+ 3ac:	c4 33       	cpi	r28, 0x34	; 52
+ 3ae:	30 f4       	brcc	.+12     	; 0x3bc <main+0x32>
+ 3b0:	c1 33       	cpi	r28, 0x31	; 49
+ 3b2:	61 f0       	breq	.+24     	; 0x3cc <main+0x42>
+ 3b4:	c2 33       	cpi	r28, 0x32	; 50
+ 3b6:	09 f0       	breq	.+2      	; 0x3ba <main+0x30>
+ 3b8:	47 c0       	rjmp	.+142    	; 0x448 <main+0xbe>
+ 3ba:	12 c0       	rjmp	.+36     	; 0x3e0 <main+0x56>
+ 3bc:	c5 33       	cpi	r28, 0x35	; 53
+ 3be:	71 f1       	breq	.+92     	; 0x41c <main+0x92>
+ 3c0:	c5 33       	cpi	r28, 0x35	; 53
+ 3c2:	10 f1       	brcs	.+68     	; 0x408 <main+0x7e>
+ 3c4:	c6 33       	cpi	r28, 0x36	; 54
+ 3c6:	09 f0       	breq	.+2      	; 0x3ca <main+0x40>
+ 3c8:	3f c0       	rjmp	.+126    	; 0x448 <main+0xbe>
+ 3ca:	33 c0       	rjmp	.+102    	; 0x432 <main+0xa8>
 		{
 		case '1':
-		TOGBIT(PORTC,0);
- 3e2:	85 b3       	in	r24, 0x15	; 21
- 3e4:	81 27       	eor	r24, r17
- 3e6:	85 bb       	out	0x15, r24	; 21
-		SPI_send_char(GETBIT(PORTC,0));
- 3e8:	85 b3       	in	r24, 0x15	; 21
- 3ea:	81 70       	andi	r24, 0x01	; 1
- 3ec:	0e 94 39 02 	call	0x472	; 0x472 <SPI_send_char>
+		select=SPI_receive_char();
+ 3cc:	0e 94 35 02 	call	0x46a	; 0x46a <SPI_receive_char>
+		if (select=='1'){SETBIT(PORTC,0);}
+ 3d0:	81 33       	cpi	r24, 0x31	; 49
+ 3d2:	11 f4       	brne	.+4      	; 0x3d8 <main+0x4e>
+ 3d4:	a8 9a       	sbi	0x15, 0	; 21
+ 3d6:	e3 cf       	rjmp	.-58     	; 0x39e <main+0x14>
+		else if (select=='2'){CLRBIT(PORTC,0);}
+ 3d8:	82 33       	cpi	r24, 0x32	; 50
+ 3da:	09 f7       	brne	.-62     	; 0x39e <main+0x14>
+ 3dc:	a8 98       	cbi	0x15, 0	; 21
+ 3de:	df cf       	rjmp	.-66     	; 0x39e <main+0x14>
 		break;
- 3f0:	e2 cf       	rjmp	.-60     	; 0x3b6 <main+0x2c>
 		case '2':
-		TOGBIT(PORTC,1);
- 3f2:	85 b3       	in	r24, 0x15	; 21
- 3f4:	8d 27       	eor	r24, r29
- 3f6:	85 bb       	out	0x15, r24	; 21
-		SPI_send_char(GETBIT(PORTC,1));
- 3f8:	85 b3       	in	r24, 0x15	; 21
- 3fa:	86 95       	lsr	r24
- 3fc:	81 70       	andi	r24, 0x01	; 1
- 3fe:	0e 94 39 02 	call	0x472	; 0x472 <SPI_send_char>
+		select=SPI_receive_char();
+ 3e0:	0e 94 35 02 	call	0x46a	; 0x46a <SPI_receive_char>
+		if (select=='1'){SETBIT(PORTC,1);}
+ 3e4:	81 33       	cpi	r24, 0x31	; 49
+ 3e6:	11 f4       	brne	.+4      	; 0x3ec <main+0x62>
+ 3e8:	a9 9a       	sbi	0x15, 1	; 21
+ 3ea:	d9 cf       	rjmp	.-78     	; 0x39e <main+0x14>
+		else if (select=='2'){CLRBIT(PORTC,1);}	
+ 3ec:	82 33       	cpi	r24, 0x32	; 50
+ 3ee:	b9 f6       	brne	.-82     	; 0x39e <main+0x14>
+ 3f0:	a9 98       	cbi	0x15, 1	; 21
+ 3f2:	d5 cf       	rjmp	.-86     	; 0x39e <main+0x14>
 		break;
- 402:	d9 cf       	rjmp	.-78     	; 0x3b6 <main+0x2c>
 		case '3':
-		TOGBIT(PORTC,2);
- 404:	85 b3       	in	r24, 0x15	; 21
- 406:	8d 25       	eor	r24, r13
- 408:	85 bb       	out	0x15, r24	; 21
-		SPI_send_char(GETBIT(PORTC,2));
- 40a:	85 b3       	in	r24, 0x15	; 21
- 40c:	86 95       	lsr	r24
- 40e:	86 95       	lsr	r24
- 410:	81 70       	andi	r24, 0x01	; 1
- 412:	0e 94 39 02 	call	0x472	; 0x472 <SPI_send_char>
+		select=SPI_receive_char();
+ 3f4:	0e 94 35 02 	call	0x46a	; 0x46a <SPI_receive_char>
+		if (select=='1'){SETBIT(PORTC,2);}
+ 3f8:	81 33       	cpi	r24, 0x31	; 49
+ 3fa:	11 f4       	brne	.+4      	; 0x400 <main+0x76>
+ 3fc:	aa 9a       	sbi	0x15, 2	; 21
+ 3fe:	cf cf       	rjmp	.-98     	; 0x39e <main+0x14>
+		else if (select=='2'){CLRBIT(PORTC,2);}
+ 400:	82 33       	cpi	r24, 0x32	; 50
+ 402:	69 f6       	brne	.-102    	; 0x39e <main+0x14>
+ 404:	aa 98       	cbi	0x15, 2	; 21
+ 406:	cb cf       	rjmp	.-106    	; 0x39e <main+0x14>
 		break;
- 416:	cf cf       	rjmp	.-98     	; 0x3b6 <main+0x2c>
 		case '4':
-		TOGBIT(PORTC,3);
- 418:	85 b3       	in	r24, 0x15	; 21
- 41a:	8f 25       	eor	r24, r15
- 41c:	85 bb       	out	0x15, r24	; 21
-		SPI_send_char(GETBIT(PORTC,3));
- 41e:	85 b3       	in	r24, 0x15	; 21
- 420:	86 95       	lsr	r24
- 422:	86 95       	lsr	r24
- 424:	86 95       	lsr	r24
- 426:	81 70       	andi	r24, 0x01	; 1
- 428:	0e 94 39 02 	call	0x472	; 0x472 <SPI_send_char>
+		select=SPI_receive_char();
+ 408:	0e 94 35 02 	call	0x46a	; 0x46a <SPI_receive_char>
+		if (select=='1'){SETBIT(PORTC,3);}
+ 40c:	81 33       	cpi	r24, 0x31	; 49
+ 40e:	11 f4       	brne	.+4      	; 0x414 <main+0x8a>
+ 410:	ab 9a       	sbi	0x15, 3	; 21
+ 412:	c5 cf       	rjmp	.-118    	; 0x39e <main+0x14>
+		else if (select=='2'){CLRBIT(PORTC,3);}
+ 414:	82 33       	cpi	r24, 0x32	; 50
+ 416:	19 f6       	brne	.-122    	; 0x39e <main+0x14>
+ 418:	ab 98       	cbi	0x15, 3	; 21
+ 41a:	c1 cf       	rjmp	.-126    	; 0x39e <main+0x14>
 		break;
- 42c:	c4 cf       	rjmp	.-120    	; 0x3b6 <main+0x2c>
 		case '5':
-		TOGBIT(PORTC,4);
- 42e:	85 b3       	in	r24, 0x15	; 21
- 430:	8e 25       	eor	r24, r14
- 432:	85 bb       	out	0x15, r24	; 21
-		SPI_send_char(GETBIT(PORTC,4));
- 434:	85 b3       	in	r24, 0x15	; 21
- 436:	82 95       	swap	r24
- 438:	8f 70       	andi	r24, 0x0F	; 15
- 43a:	81 70       	andi	r24, 0x01	; 1
- 43c:	0e 94 39 02 	call	0x472	; 0x472 <SPI_send_char>
+		select=SPI_receive_char();
+ 41c:	0e 94 35 02 	call	0x46a	; 0x46a <SPI_receive_char>
+		if (select=='1'){SETBIT(PORTC,4);}
+ 420:	81 33       	cpi	r24, 0x31	; 49
+ 422:	11 f4       	brne	.+4      	; 0x428 <main+0x9e>
+ 424:	ac 9a       	sbi	0x15, 4	; 21
+ 426:	bb cf       	rjmp	.-138    	; 0x39e <main+0x14>
+		else if (select=='2'){CLRBIT(PORTC,4);}
+ 428:	82 33       	cpi	r24, 0x32	; 50
+ 42a:	09 f0       	breq	.+2      	; 0x42e <main+0xa4>
+ 42c:	b8 cf       	rjmp	.-144    	; 0x39e <main+0x14>
+ 42e:	ac 98       	cbi	0x15, 4	; 21
+ 430:	b6 cf       	rjmp	.-148    	; 0x39e <main+0x14>
 		break;
- 440:	ba cf       	rjmp	.-140    	; 0x3b6 <main+0x2c>
 		case '6':
-		TOGBIT(PORTC,5);
- 442:	85 b3       	in	r24, 0x15	; 21
- 444:	80 27       	eor	r24, r16
- 446:	85 bb       	out	0x15, r24	; 21
-		SPI_send_char(GETBIT(PORTC,5));
- 448:	85 b3       	in	r24, 0x15	; 21
- 44a:	82 95       	swap	r24
- 44c:	86 95       	lsr	r24
- 44e:	87 70       	andi	r24, 0x07	; 7
- 450:	81 70       	andi	r24, 0x01	; 1
- 452:	0e 94 39 02 	call	0x472	; 0x472 <SPI_send_char>
+		select=SPI_receive_char();
+ 432:	0e 94 35 02 	call	0x46a	; 0x46a <SPI_receive_char>
+		if (select=='1'){SETBIT(PORTC,5);}
+ 436:	81 33       	cpi	r24, 0x31	; 49
+ 438:	11 f4       	brne	.+4      	; 0x43e <main+0xb4>
+ 43a:	ad 9a       	sbi	0x15, 5	; 21
+ 43c:	b0 cf       	rjmp	.-160    	; 0x39e <main+0x14>
+		else if (select=='2'){CLRBIT(PORTC,5);}
+ 43e:	82 33       	cpi	r24, 0x32	; 50
+ 440:	09 f0       	breq	.+2      	; 0x444 <main+0xba>
+ 442:	ad cf       	rjmp	.-166    	; 0x39e <main+0x14>
+ 444:	ad 98       	cbi	0x15, 5	; 21
+ 446:	ab cf       	rjmp	.-170    	; 0x39e <main+0x14>
 		break;
- 456:	af cf       	rjmp	.-162    	; 0x3b6 <main+0x2c>
 		default:
 		SPI_send_char('n');
- 458:	8e e6       	ldi	r24, 0x6E	; 110
- 45a:	0e 94 39 02 	call	0x472	; 0x472 <SPI_send_char>
+ 448:	8e e6       	ldi	r24, 0x6E	; 110
+ 44a:	0e 94 31 02 	call	0x462	; 0x462 <SPI_send_char>
 		break;
- 45e:	ab cf       	rjmp	.-170    	; 0x3b6 <main+0x2c>
+ 44e:	a7 cf       	rjmp	.-178    	; 0x39e <main+0x14>
 
-00000460 <SPI_master_init>:
+00000450 <SPI_master_init>:
 #define CS	PB4
 //#define CS2	PB3
 #define CLK PB5
 
 void SPI_master_init(){
 	DDRB |= (1<<MOSI)|(1<<CS)|(1<<CLK);
- 460:	87 b3       	in	r24, 0x17	; 23
- 462:	80 6b       	ori	r24, 0xB0	; 176
- 464:	87 bb       	out	0x17, r24	; 23
+ 450:	87 b3       	in	r24, 0x17	; 23
+ 452:	80 6b       	ori	r24, 0xB0	; 176
+ 454:	87 bb       	out	0x17, r24	; 23
 	SPCR = 1<<MSTR | 1<<SPE;
- 466:	80 e5       	ldi	r24, 0x50	; 80
- 468:	8d b9       	out	0x0d, r24	; 13
+ 456:	80 e5       	ldi	r24, 0x50	; 80
+ 458:	8d b9       	out	0x0d, r24	; 13
 }
- 46a:	08 95       	ret
+ 45a:	08 95       	ret
 
-0000046c <SPI_slave_init>:
+0000045c <SPI_slave_init>:
 void SPI_slave_init(){	
 	SETBIT(DDRB,MISO);	// MISO
- 46c:	be 9a       	sbi	0x17, 6	; 23
+ 45c:	be 9a       	sbi	0x17, 6	; 23
 	SETBIT(SPCR,SPE);	// enable SPI
- 46e:	6e 9a       	sbi	0x0d, 6	; 13
+ 45e:	6e 9a       	sbi	0x0d, 6	; 13
 }
- 470:	08 95       	ret
+ 460:	08 95       	ret
 
-00000472 <SPI_send_char>:
+00000462 <SPI_send_char>:
 void SPI_send_char(uint8_t data){
 	SPDR = data;
- 472:	8f b9       	out	0x0f, r24	; 15
+ 462:	8f b9       	out	0x0f, r24	; 15
 	while(GETBIT(SPSR,SPIF) == 0);
- 474:	77 9b       	sbis	0x0e, 7	; 14
- 476:	fe cf       	rjmp	.-4      	; 0x474 <SPI_send_char+0x2>
+ 464:	77 9b       	sbis	0x0e, 7	; 14
+ 466:	fe cf       	rjmp	.-4      	; 0x464 <SPI_send_char+0x2>
 }
- 478:	08 95       	ret
+ 468:	08 95       	ret
 
-0000047a <SPI_receive_char>:
+0000046a <SPI_receive_char>:
 uint8_t SPI_receive_char(){
 	while(GETBIT(SPSR,SPIF) == 0);
- 47a:	77 9b       	sbis	0x0e, 7	; 14
- 47c:	fe cf       	rjmp	.-4      	; 0x47a <SPI_receive_char>
+ 46a:	77 9b       	sbis	0x0e, 7	; 14
+ 46c:	fe cf       	rjmp	.-4      	; 0x46a <SPI_receive_char>
 	return SPDR;
- 47e:	8f b1       	in	r24, 0x0f	; 15
- 480:	08 95       	ret
+ 46e:	8f b1       	in	r24, 0x0f	; 15
+ 470:	08 95       	ret
 
-00000482 <__udivmodsi4>:
- 482:	a1 e2       	ldi	r26, 0x21	; 33
- 484:	1a 2e       	mov	r1, r26
- 486:	aa 1b       	sub	r26, r26
- 488:	bb 1b       	sub	r27, r27
- 48a:	fd 01       	movw	r30, r26
- 48c:	0d c0       	rjmp	.+26     	; 0x4a8 <__udivmodsi4_ep>
+00000472 <__udivmodsi4>:
+ 472:	a1 e2       	ldi	r26, 0x21	; 33
+ 474:	1a 2e       	mov	r1, r26
+ 476:	aa 1b       	sub	r26, r26
+ 478:	bb 1b       	sub	r27, r27
+ 47a:	fd 01       	movw	r30, r26
+ 47c:	0d c0       	rjmp	.+26     	; 0x498 <__udivmodsi4_ep>
 
-0000048e <__udivmodsi4_loop>:
- 48e:	aa 1f       	adc	r26, r26
- 490:	bb 1f       	adc	r27, r27
- 492:	ee 1f       	adc	r30, r30
- 494:	ff 1f       	adc	r31, r31
- 496:	a2 17       	cp	r26, r18
- 498:	b3 07       	cpc	r27, r19
- 49a:	e4 07       	cpc	r30, r20
- 49c:	f5 07       	cpc	r31, r21
- 49e:	20 f0       	brcs	.+8      	; 0x4a8 <__udivmodsi4_ep>
- 4a0:	a2 1b       	sub	r26, r18
- 4a2:	b3 0b       	sbc	r27, r19
- 4a4:	e4 0b       	sbc	r30, r20
- 4a6:	f5 0b       	sbc	r31, r21
+0000047e <__udivmodsi4_loop>:
+ 47e:	aa 1f       	adc	r26, r26
+ 480:	bb 1f       	adc	r27, r27
+ 482:	ee 1f       	adc	r30, r30
+ 484:	ff 1f       	adc	r31, r31
+ 486:	a2 17       	cp	r26, r18
+ 488:	b3 07       	cpc	r27, r19
+ 48a:	e4 07       	cpc	r30, r20
+ 48c:	f5 07       	cpc	r31, r21
+ 48e:	20 f0       	brcs	.+8      	; 0x498 <__udivmodsi4_ep>
+ 490:	a2 1b       	sub	r26, r18
+ 492:	b3 0b       	sbc	r27, r19
+ 494:	e4 0b       	sbc	r30, r20
+ 496:	f5 0b       	sbc	r31, r21
 
-000004a8 <__udivmodsi4_ep>:
- 4a8:	66 1f       	adc	r22, r22
- 4aa:	77 1f       	adc	r23, r23
- 4ac:	88 1f       	adc	r24, r24
- 4ae:	99 1f       	adc	r25, r25
- 4b0:	1a 94       	dec	r1
- 4b2:	69 f7       	brne	.-38     	; 0x48e <__udivmodsi4_loop>
- 4b4:	60 95       	com	r22
- 4b6:	70 95       	com	r23
- 4b8:	80 95       	com	r24
- 4ba:	90 95       	com	r25
- 4bc:	9b 01       	movw	r18, r22
- 4be:	ac 01       	movw	r20, r24
- 4c0:	bd 01       	movw	r22, r26
- 4c2:	cf 01       	movw	r24, r30
- 4c4:	08 95       	ret
+00000498 <__udivmodsi4_ep>:
+ 498:	66 1f       	adc	r22, r22
+ 49a:	77 1f       	adc	r23, r23
+ 49c:	88 1f       	adc	r24, r24
+ 49e:	99 1f       	adc	r25, r25
+ 4a0:	1a 94       	dec	r1
+ 4a2:	69 f7       	brne	.-38     	; 0x47e <__udivmodsi4_loop>
+ 4a4:	60 95       	com	r22
+ 4a6:	70 95       	com	r23
+ 4a8:	80 95       	com	r24
+ 4aa:	90 95       	com	r25
+ 4ac:	9b 01       	movw	r18, r22
+ 4ae:	ac 01       	movw	r20, r24
+ 4b0:	bd 01       	movw	r22, r26
+ 4b2:	cf 01       	movw	r24, r30
+ 4b4:	08 95       	ret
 
-000004c6 <_exit>:
- 4c6:	f8 94       	cli
+000004b6 <_exit>:
+ 4b6:	f8 94       	cli
 
-000004c8 <__stop_program>:
- 4c8:	ff cf       	rjmp	.-2      	; 0x4c8 <__stop_program>
+000004b8 <__stop_program>:
+ 4b8:	ff cf       	rjmp	.-2      	; 0x4b8 <__stop_program>
