@@ -20,6 +20,7 @@ uint8_t block_mode;
 uint8_t start_msg=0;
 uint8_t count=0;
 uint8_t initial=0;
+uint8_t disp_falg=0;
 uint8_t Set_admin_pass=0;
 uint8_t Set_guest_pass=0;
 uint8_t state=0; // Admin(0) or guest(1)
@@ -113,9 +114,6 @@ int main(void){
 
 void get_password ()
 {
-
-//	LCD_write_command(0x80);
-//	LCD_write_string("enter password");
 	int8_t key=keypad_read();
 	if(key != -1 && key!='N'){
 		switch (count)
@@ -193,6 +191,7 @@ void get_password ()
 			}
 			else if (( c1==g1&&c2==g2&&c3==g3&&c4==g4)&& state==1 && initial==0 ){
 				/*call function to enter guest mode */
+				key=-1;
 				GUEST();
 			}
 			else if (initial==1 && state==0 ){
@@ -239,13 +238,14 @@ void get_password ()
 				EEPROM_write(30,0);
 				}
 			}
-			case 5:
+/*			case 5:
 			switch (key){
 				case '1':
 				LCD_write_command(1);
 				LCD_write_string("Room 1");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				key=-1;
 				count=6;
 				break;
 				case '2':
@@ -253,6 +253,7 @@ void get_password ()
 				LCD_write_string("Room 2");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				key=-1;
 				count=6;
 				break;
 				case '3':
@@ -260,14 +261,32 @@ void get_password ()
 				LCD_write_string("Room 3");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				key=-1;
 				count=6;
 				break;
 				case '4':
+				if (state==1){
 				LCD_write_command(1);
 				LCD_write_string("Room 4");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				key=-1;
 				count=6;
+				}
+				else if(state==0){
+					key=-1;
+					admin_display2();
+					disp_falg=1;}
+				else if (state==0 && disp_falg==1){
+					LCD_write_command(1);
+					LCD_write_string("Room 4");
+					LCD_write_command(0xc0);
+					LCD_write_string("1>on 2>off 3>back");
+					key=-1;
+					count=6;
+					disp_falg=0;
+				}		
+				
 				break;
 				case '5':
 				if (state==0){
@@ -275,24 +294,36 @@ void get_password ()
 				LCD_write_string("TV");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				key=-1;
 				count=6;
 				}
-				else {
+				else if(state==1) {
+					LCD_write_command(1);
+					LCD_write_string("wrong entry");
+					_delay_ms(100);
+					LCD_write_command(1);
 					guest_display();
-
 				}
 				break;
 				case '6':
-			if(state==0){
+				if(state==0){
 				LCD_write_command(1);
 				LCD_write_string("COND");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				key=-1;
 				count=6;
 				}				
-				else {
+				else if(state==1) {
+					LCD_write_command(1);
+					LCD_write_string("wrong entry");
+					_delay_ms(100);
+					LCD_write_command(1);
 					guest_display();
 				}
+				break;
+				case '7':
+				admin_display();
 				break;
 				case -1:
 				break;
@@ -312,20 +343,24 @@ void get_password ()
 				LCD_write_command(1);
 				LCD_write_string("Room 1");
 				LCD_write_command(0xc0);
-				LCD_write_string("action");
+				LCD_write_string("on");				// change this to spi send 
 				
 				break;
 				case '2':
 				LCD_write_command(1);
-				LCD_write_string("Room 1");
+				LCD_write_string("Room 1");		// change this to spi send 	
 				LCD_write_command(0xc0);
-				LCD_write_string("action");
+				LCD_write_string("off");
 				break;
 				case '3':
-				LCD_write_command(1);
-				LCD_write_string("Room 1");
-				LCD_write_command(0xc0);
-				LCD_write_string("back");
+				if(state==0){
+					admin_display();
+					count=5;
+				}
+				else if(state==1){
+					guest_display();
+					count=5;
+				}
 				break;
 				default:
 				LCD_write_command(1);
@@ -333,7 +368,9 @@ void get_password ()
 				break;
 			}
 			break;				
+		*/
 		}
+	
 	}
 }
 void ADMIN(){
@@ -342,22 +379,13 @@ void ADMIN(){
 	admin_display();
 	count=5;
 	
-//	count=0;
-//	start_msg=0;
-//	_delay_ms(3000);
-//	LCD_write_command(1);
-//	SETBIT(PORTC,0);
 }
 void GUEST(){
 	SETBIT(PORTC,2);
 	SETBIT(TIMSK,TOIE0);
 	guest_display();
 	count=5;	
-//	count=0;
-//	start_msg=0;
-	//_delay_ms(3000);
-	//LCD_write_command(1);
-	//CLRBIT(PORTC,2);
+
 }
 ISR(TIMER0_OVF_vect){
 	
@@ -387,6 +415,7 @@ ISR(TIMER0_OVF_vect){
 	}
 }
 void admin_display(){
+	LCD_write_command(1);
 	LCD_write_string("1>Room1");
 	LCD_write_command(0x88);
 	LCD_write_string("2>Room2");
@@ -396,15 +425,17 @@ void admin_display(){
 	LCD_write_string("4>More");
 }
 void admin_display2(){
-	LCD_write_string("1>Room4");
+	LCD_write_command(1);
+	LCD_write_string("4>Room4");
 	LCD_write_command(0x88);
-	LCD_write_string("2>TV");
+	LCD_write_string("5>TV");
 	LCD_write_command(0xc0);
-	LCD_write_string("3>COND");
+	LCD_write_string("6>COND");
 	LCD_write_command(0xc8);
-	LCD_write_string("4>back");
+	LCD_write_string("7>back");
 }
 void guest_display(){
+	LCD_write_command(1);
 	LCD_write_string("1>Room1");
 	LCD_write_command(0x88);
 	LCD_write_string("2>Room2");
