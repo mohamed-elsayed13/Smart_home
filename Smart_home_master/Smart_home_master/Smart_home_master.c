@@ -188,11 +188,13 @@ void get_password ()
 				/*call function to enter admin mode */
 				key=-1;
 				ADMIN();
+				key=-1;
 			}
 			else if (( c1==g1&&c2==g2&&c3==g3&&c4==g4)&& state==1 && initial==0 ){
 				/*call function to enter guest mode */
 				key=-1;
 				GUEST();
+				key=-1;
 			}
 			else if (initial==1 && state==0 ){
 				EEPROM_write(20,c1);
@@ -237,8 +239,10 @@ void get_password ()
 				block_mode=0;
 				EEPROM_write(30,0);
 				}
+				
 			}
-/*			case 5:
+			break;
+			case 5:
 			switch (key){
 				case '1':
 				LCD_write_command(1);
@@ -273,7 +277,7 @@ void get_password ()
 				key=-1;
 				count=6;
 				}
-				else if(state==0){
+				else if(state==0 && disp_falg==0){
 					key=-1;
 					admin_display2();
 					disp_falg=1;}
@@ -286,14 +290,15 @@ void get_password ()
 					count=6;
 					disp_falg=0;
 				}		
-				
+				else {key=-1;}
 				break;
 				case '5':
-				if (state==0){
+				if (state==0 && disp_falg==1){
 				LCD_write_command(1);
 				LCD_write_string("TV");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				disp_falg=0;
 				key=-1;
 				count=6;
 				}
@@ -306,11 +311,12 @@ void get_password ()
 				}
 				break;
 				case '6':
-				if(state==0){
+				if(state==0 && disp_falg==1){
 				LCD_write_command(1);
 				LCD_write_string("COND");
 				LCD_write_command(0xc0);
 				LCD_write_string("1>on 2>off 3>back");
+				disp_falg=0;
 				key=-1;
 				count=6;
 				}				
@@ -323,17 +329,16 @@ void get_password ()
 				}
 				break;
 				case '7':
-				admin_display();
+				if(state==0&&disp_falg==1){
+					admin_display();
+					disp_falg=0;
+					}
+				else{key=-1;}
 				break;
 				case -1:
 				break;
 				default:
-				LCD_write_command(1);
-				LCD_write_string("wrong entry");
-				_delay_ms(100);
-				LCD_write_command(1);
 				admin_display();
-
 				break;
 			}
 			break;
@@ -344,31 +349,36 @@ void get_password ()
 				LCD_write_string("Room 1");
 				LCD_write_command(0xc0);
 				LCD_write_string("on");				// change this to spi send 
-				
+				key=-1;
 				break;
 				case '2':
 				LCD_write_command(1);
 				LCD_write_string("Room 1");		// change this to spi send 	
 				LCD_write_command(0xc0);
 				LCD_write_string("off");
+				key=-1;
 				break;
 				case '3':
 				if(state==0){
 					admin_display();
+					key=-1;
 					count=5;
 				}
 				else if(state==1){
 					guest_display();
+					key=-1;
 					count=5;
 				}
 				break;
 				default:
 				LCD_write_command(1);
 				LCD_write_string("wrong entry");
+				LCD_write_command(0xc0);
+				LCD_write_string("1>on 2>off 3>back");
 				break;
 			}
 			break;				
-		*/
+		
 		}
 	
 	}
