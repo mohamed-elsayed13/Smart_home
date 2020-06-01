@@ -36,9 +36,9 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../ADC.c \
-../LCD.c \
 ../Smart_home_slave.c \
-../SPI.c
+../SPI.c \
+../Timer0.c
 
 
 PREPROCESSING_SRCS += 
@@ -49,30 +49,30 @@ ASM_SRCS +=
 
 OBJS +=  \
 ADC.o \
-LCD.o \
 Smart_home_slave.o \
-SPI.o
+SPI.o \
+Timer0.o
 
 
 OBJS_AS_ARGS +=  \
 ADC.o \
-LCD.o \
 Smart_home_slave.o \
-SPI.o
+SPI.o \
+Timer0.o
 
 
 C_DEPS +=  \
 ADC.d \
-LCD.d \
 Smart_home_slave.d \
-SPI.d
+SPI.d \
+Timer0.d
 
 
 C_DEPS_AS_ARGS +=  \
 ADC.d \
-LCD.d \
 Smart_home_slave.d \
-SPI.d
+SPI.d \
+Timer0.d
 
 
 OUTPUT_FILE_PATH +=Smart_home_slave.elf

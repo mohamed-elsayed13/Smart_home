@@ -139,7 +139,7 @@ LOAD c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/av
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xf32
+.text           0x00000000      0xf54
  *(.vectors)
  .vectors       0x00000000       0x54 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
                 0x00000000                __vector_default
@@ -227,7 +227,7 @@ LOAD c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/av
                 0x000002a2                LCD_write_char
                 0x00000356                LCD_write_string
                 0x00000382                LCD_write_num
- .text          0x00000458      0xa56 Smart_home_master.o
+ .text          0x00000458      0xa78 Smart_home_master.o
                 0x00000458                __vector_11
                 0x000004d8                admin_display
                 0x00000512                ADMIN
@@ -235,31 +235,31 @@ LOAD c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/av
                 0x00000560                guest_display
                 0x0000059a                GUEST
                 0x000005ae                get_password
-                0x00000cce                main
- .text          0x00000eae       0x22 SPI.o
-                0x00000eae                SPI_master_init
-                0x00000eba                SPI_slave_init
-                0x00000ec0                SPI_send_char
-                0x00000ec8                SPI_receive_char
- .text          0x00000ed0       0x1a Timer0.o
-                0x00000ed0                timer_normal_init
-                0x00000ed8                timer_compare_init
- .text          0x00000eea        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_udivmodsi4.o)
- .text          0x00000eea        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .text          0x00000eea        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .text          0x00000eea        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
-                0x00000eea                . = ALIGN (0x2)
+                0x00000ce0                main
+ .text          0x00000ed0       0x22 SPI.o
+                0x00000ed0                SPI_master_init
+                0x00000edc                SPI_slave_init
+                0x00000ee2                SPI_send_char
+                0x00000eea                SPI_receive_char
+ .text          0x00000ef2       0x1a Timer0.o
+                0x00000ef2                timer_normal_init
+                0x00000efa                timer_compare_init
+ .text          0x00000f0c        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_udivmodsi4.o)
+ .text          0x00000f0c        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .text          0x00000f0c        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .text          0x00000f0c        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+                0x00000f0c                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x00000eea       0x44 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_udivmodsi4.o)
-                0x00000eea                __udivmodsi4
- .text.libgcc   0x00000f2e        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x00000f2e        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x00000f2e        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
-                0x00000f2e                . = ALIGN (0x2)
+ .text.libgcc   0x00000f0c       0x44 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_udivmodsi4.o)
+                0x00000f0c                __udivmodsi4
+ .text.libgcc   0x00000f50        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00000f50        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000f50        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+                0x00000f50                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000f2e        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
-                0x00000f2e                _exit
-                0x00000f2e                exit
+ .fini9         0x00000f50        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+                0x00000f50                _exit
+                0x00000f50                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -278,11 +278,11 @@ LOAD c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/av
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000f2e        0x4 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000f50        0x4 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000f32                _etext = .
+                0x00000f54                _etext = .
 
-.data           0x00800060      0x12e load address 0x00000f32
+.data           0x00800060      0x18c load address 0x00000f54
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
@@ -290,70 +290,70 @@ LOAD c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/av
  .data          0x00800060       0x10 keypad.o
                 0x00800060                keypad_matrix
  .data          0x00800070        0x0 LCD.o
- .data          0x00800070      0x11d Smart_home_master.o
-                0x00800189                a4
-                0x0080018a                a3
-                0x0080018b                a2
-                0x0080018c                a1
- .data          0x0080018d        0x0 SPI.o
- .data          0x0080018d        0x0 Timer0.o
- .data          0x0080018d        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_udivmodsi4.o)
- .data          0x0080018d        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .data          0x0080018d        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .data          0x0080018d        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+ .data          0x00800070      0x17b Smart_home_master.o
+                0x008001e7                a4
+                0x008001e8                a3
+                0x008001e9                a2
+                0x008001ea                a1
+ .data          0x008001eb        0x0 SPI.o
+ .data          0x008001eb        0x0 Timer0.o
+ .data          0x008001eb        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_udivmodsi4.o)
+ .data          0x008001eb        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .data          0x008001eb        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .data          0x008001eb        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.d*)
-                0x0080018e                . = ALIGN (0x2)
- *fill*         0x0080018d        0x1 00
-                0x0080018e                _edata = .
-                0x0080018e                PROVIDE (__data_end, .)
+                0x008001ec                . = ALIGN (0x2)
+ *fill*         0x008001eb        0x1 00
+                0x008001ec                _edata = .
+                0x008001ec                PROVIDE (__data_end, .)
 
-.bss            0x0080018e       0x13
-                0x0080018e                PROVIDE (__bss_start, .)
+.bss            0x008001ec       0x13
+                0x008001ec                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x0080018e        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
- .bss           0x0080018e        0x0 EEPROM.o
- .bss           0x0080018e        0x0 keypad.o
- .bss           0x0080018e        0x0 LCD.o
- .bss           0x0080018e        0xa Smart_home_master.o
-                0x0080018e                state
-                0x0080018f                Set_guest_pass
-                0x00800190                Set_admin_pass
-                0x00800191                disp_falg
-                0x00800192                initial
-                0x00800193                count
-                0x00800194                start_msg
-                0x00800195                button_num
- .bss           0x00800198        0x0 SPI.o
- .bss           0x00800198        0x0 Timer0.o
- .bss           0x00800198        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_udivmodsi4.o)
- .bss           0x00800198        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .bss           0x00800198        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .bss           0x00800198        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x008001ec        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
+ .bss           0x008001ec        0x0 EEPROM.o
+ .bss           0x008001ec        0x0 keypad.o
+ .bss           0x008001ec        0x0 LCD.o
+ .bss           0x008001ec        0xa Smart_home_master.o
+                0x008001ec                state
+                0x008001ed                Set_guest_pass
+                0x008001ee                Set_admin_pass
+                0x008001ef                disp_falg
+                0x008001f0                initial
+                0x008001f1                count
+                0x008001f2                start_msg
+                0x008001f3                button_num
+ .bss           0x008001f6        0x0 SPI.o
+ .bss           0x008001f6        0x0 Timer0.o
+ .bss           0x008001f6        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_udivmodsi4.o)
+ .bss           0x008001f6        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .bss           0x008001f6        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .bss           0x008001f6        0x0 c:/program files/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
  *(.bss*)
  *(COMMON)
- COMMON         0x00800198        0x9 Smart_home_master.o
-                0x00800198                g4
-                0x00800199                g3
-                0x0080019a                g1
-                0x0080019b                c4
-                0x0080019c                c2
-                0x0080019d                block_mode
-                0x0080019e                g2
-                0x0080019f                c1
-                0x008001a0                c3
-                0x008001a1                PROVIDE (__bss_end, .)
-                0x00000f32                __data_load_start = LOADADDR (.data)
-                0x00001060                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x008001f6        0x9 Smart_home_master.o
+                0x008001f6                g4
+                0x008001f7                g3
+                0x008001f8                g1
+                0x008001f9                c4
+                0x008001fa                c2
+                0x008001fb                block_mode
+                0x008001fc                g2
+                0x008001fd                c1
+                0x008001fe                c3
+                0x008001ff                PROVIDE (__bss_end, .)
+                0x00000f54                __data_load_start = LOADADDR (.data)
+                0x000010e0                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008001a1        0x0
-                0x008001a1                PROVIDE (__noinit_start, .)
+.noinit         0x008001ff        0x0
+                0x008001ff                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008001a1                PROVIDE (__noinit_end, .)
-                0x008001a1                _end = .
-                0x008001a1                PROVIDE (__heap_start, .)
+                0x008001ff                PROVIDE (__noinit_end, .)
+                0x008001ff                _end = .
+                0x008001ff                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)

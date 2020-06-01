@@ -76,12 +76,6 @@
     <Compile Include="header.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="LCD.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="LCD.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Smart_home_slave.c">
       <SubType>compile</SubType>
     </Compile>
@@ -89,6 +83,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="SPI.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Timer0.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Timer0.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

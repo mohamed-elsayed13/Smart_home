@@ -42,14 +42,10 @@ int main(void){
 	SETBIT(DDRC,0);		// LED FOR ADMIN MODE
 	SETBIT(DDRC,2);		// LED FOR GUEST MODE
 	SETBIT(DDRC,4);		// LED FOR BLOCK MODE
-//	sei();
-//	int8_t key;
 	LCD_init();
 	keypad_init();
 	SPI_master_init();
 	timer_normal_init();
-//    SETBIT(PORTC,4);
-//	LCD_write_string("enter password");
 	block_mode=EEPROM_read(30);
 	while(1)
     {
@@ -65,7 +61,7 @@ int main(void){
 		LCD_write_command(1);
 		LCD_write_string("Enter right pass");
 		block_mode=0;
-
+		EEPROM_write(30,0);
 		}
 		
 		
@@ -91,28 +87,16 @@ int main(void){
 		}
 		if(start_msg==0){						// start message to user before writing password
 		LCD_write_command(1);
-		LCD_write_string("0>admin&1>guest ");
-		_delay_ms(500);
+		LCD_write_string("select Mode: ");
+		LCD_write_command(0xc0);
+		LCD_write_string("0>Admin 1>Guest");
 		start_msg++;
 		CLRBIT(PORTB,4);
 		SPI_send_char('0');
 		SETBIT(PORTB,4);
 		}
 		get_password();
-				
-				
-		/*
-		key=keypad_read();
-		if (key!=-1)
-		{
-		LCD_write_command(0x1);
-		LCD_write_char(key);
-		CLRBIT(PORTB,4);
-		SPI_send_char(key);
-		SETBIT(PORTB,4);
-		sei();				// test
-		_delay_ms(100);
-		}*/
+		
 	}
 }
 
@@ -125,8 +109,8 @@ void get_password ()
 			case 0 :
 			if (key-48==0)
 			{
-				block_mode=0;
-				EEPROM_write(30,0);
+				//block_mode=0;
+				//EEPROM_write(30,0);
 				state=0;
 				count++;
 				LCD_write_command(1);
@@ -135,8 +119,8 @@ void get_password ()
 			}
 			else if (key-48==1)
 			{
-				block_mode=0;
-				EEPROM_write(30,0);
+				//block_mode=0;
+				//EEPROM_write(30,0);
 				state=1;
 				count++;
 				LCD_write_command(1);
@@ -192,12 +176,16 @@ void get_password ()
 				/*call function to enter admin mode */
 				key=-1;
 				ADMIN();
+				block_mode=0;
+				EEPROM_write(30,0);
 				key=-1;
 			}
 			else if (( c1==g1&&c2==g2&&c3==g3&&c4==g4)&& state==1 && initial==0 ){
 				/*call function to enter guest mode */
 				key=-1;
 				GUEST();
+				block_mode=0;
+				EEPROM_write(30,0);
 				key=-1;
 			}
 			else if (initial==1 && state==0 ){
@@ -216,6 +204,9 @@ void get_password ()
 				EEPROM_write(28,c4);
 				EEPROM_write(29,15);
 				initial++;
+				LCD_write_command(1);
+				LCD_write_string("Now Restart :)");
+				_delay_ms(500);
 				start_msg=0;
 			}
 			
@@ -223,12 +214,12 @@ void get_password ()
 				block_mode++;
 				LCD_write_command(1);
 				LCD_write_string("Wrong password");
-				_delay_ms(300);
+				_delay_ms(150);
 				LCD_write_command(1);
 				LCD_write_num(3-block_mode);
 				LCD_write_string(" Tries left");
+				EEPROM_write(30,block_mode);
 				_delay_ms(100);
-				EEPROM_write(30,block_mode);				
 				count=1;
 				if(block_mode==3){
 				SETBIT(PORTC,4);
@@ -378,9 +369,9 @@ void get_password ()
 			switch (key){
 				case '1':
 				LCD_write_command(1);
-				LCD_write_string("Room 1");
+				LCD_write_string("status:   on ");
 				LCD_write_command(0xc0);
-				LCD_write_string("on");				// change this to spi send 
+				LCD_write_string("2>off  3>back");			 
 				CLRBIT(PORTB,4);
 				SPI_send_char(key);
 				SETBIT(PORTB,4);
@@ -392,9 +383,9 @@ void get_password ()
 				break;
 				case '2':
 				LCD_write_command(1);
-				LCD_write_string("Room 1");		// change this to spi send 	
+				LCD_write_string("status:  off ");
 				LCD_write_command(0xc0);
-				LCD_write_string("off");
+				LCD_write_string("1>on   3>back");
 				CLRBIT(PORTB,4);
 				SPI_send_char(key);
 				SETBIT(PORTB,4);
