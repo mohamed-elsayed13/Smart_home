@@ -2,11 +2,11 @@
  * Smart_home_master.c
  *
  * Created: 29/05/2020 5:23:27 AM
- *  Author: M
+ *  Author: Mohamed Elsayed
  */ 
 /**************************************  Timer Tick  ****************************************************/
 // looks like Watchdog timer reset application and ask for the password every tick 
-#define tick 93
+#define tick 245
 /*
 tick 31  --->> 0.5 sec  
 tick 62  --->> 1   sec
@@ -41,7 +41,7 @@ uint8_t disp_falg=0;					 // This flag is to select which display function to us
 uint8_t Set_admin_pass=0;				 // This flag will let you set Admin password one time in the begining 
 uint8_t Set_guest_pass=0;				 // This flag will let you set Guest password one time in the begining
 uint8_t state=0;						 // Admin(0) or guest(1)
-uint8_t a1=1,a2=2,a3=3,a4=4;			 // right password digits --> admin
+uint8_t a1,a2,a3,a4;					 // right password digits --> admin
 uint8_t g1,g2,g3,g4;					 //right password digits	--> guest
 uint8_t c1,c2,c3,c4;					 // password digits entered by user
 int main(void){
@@ -99,6 +99,7 @@ int main(void){
 			count=1;
 			state=0;
 			start_msg=1;
+			Set_admin_pass=15;
 			_delay_ms(200);
 		}
 		if (Set_guest_pass==255 && initial==2 )				//To set first value of guest password
@@ -231,9 +232,17 @@ void get_password ()
 				EEPROM_write(29,15);
 				initial++;
 				LCD_write_command(1);
-				LCD_write_string("Now press Reset");
-				_delay_ms(500);
+				a1=EEPROM_read(20);					 // first digit of admin mode
+				a2=EEPROM_read(21);					 // second digit of admin mode
+				a3=EEPROM_read(22);					 // third digit of admin mode
+				a4=EEPROM_read(23);	                 // forth digit of admin mode
+				g1=EEPROM_read(25);					 // first digit of guest mode
+				g2=EEPROM_read(26);					 // second digit of guest mode
+				g3=EEPROM_read(27);				     // third digit of guest mode
+				g4=EEPROM_read(28);					 // forth digit of guest mode
 				start_msg=0;
+				initial=0;
+				count=0;
 			}
 			
 			else {
